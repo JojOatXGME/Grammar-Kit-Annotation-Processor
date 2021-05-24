@@ -1,0 +1,117 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'dev.johanness'
+version '0.1.0'
+
+jar.manifest {
+    attributes('Automatic-Module-Name': 'dev.johanness.grammarkit.processor')
+}
+
+repositories {
+    mavenCentral()
+    // Copied from GrammarKit.groovy in gradle-grammar-kit-plugin.
+    // https://github.com/JetBrains/gradle-grammar-kit-plugin/blob/74357beb863e910515a0843293f11a0cbb16623e/src/main/groovy/org/jetbrains/grammarkit/GrammarKit.groovy#L12-L16
+    maven { url "https://cache-redirector.jetbrains.com/intellij-dependencies" }
+    maven { url "https://www.jetbrains.com/intellij-repository/releases" }
+    maven { url 'https://www.jitpack.io' }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    // I want use text blocks in my tests
+    sourceCompatibility = JavaVersion.VERSION_15
+    targetCompatibility = JavaVersion.VERSION_15
+}
+
+configurations {
+    intelliJ {
+        // Copied from GrammarKit.groovy in gradle-grammar-kit-plugin.
+        // https://github.com/JetBrains/gradle-grammar-kit-plugin/blob/74357beb863e910515a0843293f11a0cbb16623e/src/main/groovy/org/jetbrains/grammarkit/GrammarKit.groovy#L72-L79
+        exclude group: 'com.jetbrains.rd'
+        exclude group: 'org.jetbrains.marketplace'
+        exclude group: 'org.roaringbitmap'
+        exclude group: 'org.jetbrains.plugins'
+        exclude module: 'idea'
+        exclude module: 'ant'
+    }
+    implementation {
+        extendsFrom intelliJ
+    }
+}
+
+dependencies {
+    compileOnly 'org.jetbrains:annotations:20.1.0'
+    testCompileOnly 'org.jetbrains:annotations:20.1.0'
+
+    // Copied from GrammarKit.groovy in gradle-grammar-kit-plugin.
+    // https://github.com/JetBrains/gradle-grammar-kit-plugin/blob/74357beb863e910515a0843293f11a0cbb16623e/src/main/groovy/org/jetbrains/grammarkit/GrammarKit.groovy#L44-L71
+    intelliJ 'com.github.JetBrains:Grammar-Kit:2020.3.1'
+    intelliJ 'org.jetbrains.intellij.deps.jflex:jflex:1.7.0-1'
+    intelliJ 'com.jetbrains.intellij.platform:indexing-impl:211.7142.45'
+    intelliJ 'com.jetbrains.intellij.platform:analysis-impl:211.7142.45'
+    intelliJ 'com.jetbrains.intellij.platform:core-impl:211.7142.45'
+    intelliJ 'com.jetbrains.intellij.platform:lang-impl:211.7142.45'
+    intelliJ 'org.jetbrains.intellij.deps:asm-all:7.0.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.7.0'
+    testImplementation 'com.google.testing.compile:compile-testing:0.19'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs '--add-exports', 'jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED'
+}
+
+javadoc {
+    assemble.dependsOn it
+    options.addBooleanOption('html5', true)
+}
+
+jar {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+            pom {
+                name = 'Grammar-Kit Annotation Processor'
+                description = 'An annotation processor for Grammar-Kit'
+                url = 'https://github.com/JojOatXGME/Grammar-Kit-Annotation-Processor'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+}
+
+task writeMetadata {
+    outputs.upToDateWhen { false }
+    doLast {
+        def dir = mkdir("$buildDir/metadata")
+        file("$dir/version.txt").text = version
+        file("$dir/jarfile.txt").text = jar.archiveFile.get()
+    }
+}
