@@ -1,0 +1,53 @@
+name: Publish to GitHub Packages
+
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  publish:
+
+    name: Publish release
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    # Setup environment
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: 15
+        distribution: adopt
+    - name: Set up cache
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: "gradle-\
+          ${{runner.os}}-\
+          ${{hashFiles('gradle/wrapper/gradle-wrapper.properties')}}-\
+          ${{hashFiles('**/*.gradle')}}"
+    # Build and publish
+    - name: Build project
+      id: gradle-build
+      run: ./gradlew --stacktrace assemble
+    - name: Publish project
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./gradlew --stacktrace publish
+    # Upload build reports
+    - name: Upload build reports
+      if: steps.gradle-build.outcome == 'success' || steps.gradle-build.outcome == 'failure'
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-reports
+        path: build/reports/
+        if-no-files-found: ignore

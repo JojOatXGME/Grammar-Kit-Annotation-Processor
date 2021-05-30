@@ -151,6 +151,6 @@ jobs:
             repo,
             release_id: createResponse.data.id,
             name: JAR_NAME,
-            label: "build result",
+            label: JAR_NAME,
             data: fs.readFileSync(JAR_FILE),
           });
