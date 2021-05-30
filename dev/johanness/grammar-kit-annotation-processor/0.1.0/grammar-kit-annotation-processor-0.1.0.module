@@ -1,0 +1,313 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "dev.johanness",
+    "module": "grammar-kit-annotation-processor",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.0.2"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "grammar-kit-annotation-processor-0.1.0.jar",
+          "url": "grammar-kit-annotation-processor-0.1.0.jar",
+          "size": 27968,
+          "sha512": "040deff920574b5173e71a27a9cb7bdf92c4859637b39f3e5a4623da3b598de92990df2f84debc07c3c25de9a226b6b4fd5fa4510256e569b287cf54b18e993a",
+          "sha256": "18ea1186c15d63aa3ba5a425131a2add5b1e7d2f512de931619b3ad22fe59f83",
+          "sha1": "3c913d548781ad6efce1aa3ec005ba4ee5acf9d5",
+          "md5": "d23d1aa2f715562073ab68dff35d7218"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.github.JetBrains",
+          "module": "Grammar-Kit",
+          "version": {
+            "requires": "2020.3.1"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.intellij.deps.jflex",
+          "module": "jflex",
+          "version": {
+            "requires": "1.7.0-1"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        },
+        {
+          "group": "com.jetbrains.intellij.platform",
+          "module": "indexing-impl",
+          "version": {
+            "requires": "211.7142.45"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        },
+        {
+          "group": "com.jetbrains.intellij.platform",
+          "module": "analysis-impl",
+          "version": {
+            "requires": "211.7142.45"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        },
+        {
+          "group": "com.jetbrains.intellij.platform",
+          "module": "core-impl",
+          "version": {
+            "requires": "211.7142.45"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        },
+        {
+          "group": "com.jetbrains.intellij.platform",
+          "module": "lang-impl",
+          "version": {
+            "requires": "211.7142.45"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        },
+        {
+          "group": "org.jetbrains.intellij.deps",
+          "module": "asm-all",
+          "version": {
+            "requires": "7.0.1"
+          },
+          "excludes": [
+            {
+              "group": "com.jetbrains.rd",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.marketplace",
+              "module": "*"
+            },
+            {
+              "group": "org.roaringbitmap",
+              "module": "*"
+            },
+            {
+              "group": "org.jetbrains.plugins",
+              "module": "*"
+            },
+            {
+              "group": "*",
+              "module": "idea"
+            },
+            {
+              "group": "*",
+              "module": "ant"
+            }
+          ]
+        }
+      ],
+      "files": [
+        {
+          "name": "grammar-kit-annotation-processor-0.1.0.jar",
+          "url": "grammar-kit-annotation-processor-0.1.0.jar",
+          "size": 27968,
+          "sha512": "040deff920574b5173e71a27a9cb7bdf92c4859637b39f3e5a4623da3b598de92990df2f84debc07c3c25de9a226b6b4fd5fa4510256e569b287cf54b18e993a",
+          "sha256": "18ea1186c15d63aa3ba5a425131a2add5b1e7d2f512de931619b3ad22fe59f83",
+          "sha1": "3c913d548781ad6efce1aa3ec005ba4ee5acf9d5",
+          "md5": "d23d1aa2f715562073ab68dff35d7218"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "grammar-kit-annotation-processor-0.1.0-sources.jar",
+          "url": "grammar-kit-annotation-processor-0.1.0-sources.jar",
+          "size": 6732,
+          "sha512": "f9f8cb53ed519c19e9423da7977164f831922365cc9054ac5f8508c48e005e329709731bf2d82b7cda0b013f4337077369251fda2e8f442194eb90e1d303f62d",
+          "sha256": "01993781578fd296cbea2b8f706ada3c3fd59e7bc0df78f79a1d60f5d61204fb",
+          "sha1": "a123a15876207c4d24eeb9a12c186384f7db94b4",
+          "md5": "0b633f26a392fb68e5701bdd7b40f05c"
+        }
+      ]
+    }
+  ]
+}
