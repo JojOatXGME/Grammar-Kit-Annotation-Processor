@@ -114,6 +114,10 @@ publishing {
                 password = System.getenv('GITHUB_TOKEN')
             }
         }
+        maven {
+            name = 'Internal'
+            url = 'file://' + buildDir + '/maven-repository'
+        }
     }
 }
 

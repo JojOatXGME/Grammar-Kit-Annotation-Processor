@@ -1,4 +1,4 @@
-name: Publish to GitHub Packages
+name: Publish project
 
 on:
   release:
@@ -9,11 +9,11 @@ on:
 jobs:
   publish:
 
-    name: Publish release
+    name: Publish to GitHub Packages and the 'maven-repository' branch
     runs-on: ubuntu-latest
 
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -38,11 +38,25 @@ jobs:
     # Build and publish
     - name: Build project
       id: gradle-build
-      run: ./gradlew --stacktrace assemble
+      run: ./gradlew --stacktrace assemble writeMetadata
+    - name: Clone 'maven-repository' branch
+      uses: actions/checkout@v2
+      with:
+        ref: refs/heads/maven-repository
+        path: build/maven-repository
     - name: Publish project
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew --stacktrace publish
+    - name: Push 'maven-repository' branch
+      run: |
+        git add -A
+        git \
+          -c "user.name=github-actions[bot]" \
+          -c "user.email=41898282+github-actions[bot]@users.noreply.github.com" \
+          commit -m "Publish $(cat ../metadata/version.txt)"
+        git push origin 'HEAD:refs/heads/maven-repository'
+      working-directory: build/maven-repository
     # Upload build reports
     - name: Upload build reports
       if: steps.gradle-build.outcome == 'success' || steps.gradle-build.outcome == 'failure'
