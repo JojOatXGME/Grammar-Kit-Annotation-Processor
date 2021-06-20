@@ -1,0 +1,4 @@
+rootProject.name = 'grammar-kit-annotation-processor'
+
+include 'processor'
+include 'example'
