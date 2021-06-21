@@ -10,7 +10,6 @@ import javax.tools.Diagnostic;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
 import java.util.Set;
 
 @SupportedAnnotationTypes("*")
@@ -22,17 +21,21 @@ public final class MyProcessor extends AbstractProcessor {
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     if (!fileCreated) {
       fileCreated = true;
-      try (InputStream in = MyProcessor.class.getResourceAsStream("Generated_B.java");
-           OutputStream out = processingEnv.getFiler().createSourceFile("myexample.Generated_B").openOutputStream()) {
-        assert in != null;
-        in.transferTo(out);
-      }
-      catch (IOException e) {
-        processingEnv.getMessager().printMessage(
-            Diagnostic.Kind.ERROR,
-            e.toString());
-      }
+      createSourceFile("myexample.Generated_B", "Generated_B.java");
     }
     return false;
+  }
+
+  private void createSourceFile(String fullName, String sourceFile) {
+    try (InputStream in = MyProcessor.class.getResourceAsStream(sourceFile);
+         OutputStream out = processingEnv.getFiler().createSourceFile(fullName).openOutputStream()) {
+      assert in != null;
+      in.transferTo(out);
+    }
+    catch (IOException e) {
+      processingEnv.getMessager().printMessage(
+          Diagnostic.Kind.ERROR,
+          e.toString());
+    }
   }
 }
