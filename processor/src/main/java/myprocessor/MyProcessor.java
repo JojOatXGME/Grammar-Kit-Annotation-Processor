@@ -21,7 +21,7 @@ public final class MyProcessor extends AbstractProcessor {
   public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
     if (!fileCreated) {
       fileCreated = true;
-      createSourceFile("myexample.Generated_B", "Generated_B.java");
+      createSourceFile("generated.Generated_B", "Generated_B.java");
     }
     return false;
   }
